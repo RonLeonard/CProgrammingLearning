@@ -13,7 +13,7 @@ int getch(void)
 
 void ungetch(int c)
 {
-    if (bufp > BUFSIZE) 
+    if (bufp >= BUFSIZE) 
         printf("ungetch: too many characters\n");
     else  
         buf[bufp++] = c;
@@ -30,8 +30,16 @@ int getint(int *pn)
         return 0;
     }
     sign = (c == '-') ? -1 : 1;
-    if (c = '+' || c = '-') {
+    if (sawsign = (c == '+' || c == '-')) {
         c = getch();
+    }
+    
+    if (!isdigit(c)) {
+        ungetch(c);
+    }
+
+    if (sawsign) {
+        ungetch((sign == -1) ? '-' : '+';)
     }
 
     for (*pn = 0; isdigit(c); c = getch()) {
